@@ -150,6 +150,11 @@ func (c *SharedController) IpAddressDeleted(a *ipamv1.IpAddress) error {
 
 	log.Debugf("processing deleted address %s-%s", a.Namespace, a.Name)
 
+	if a.Status.Provider != "" && a.Status.Provider != c.IpamName {
+		log.Debugf("ignoring address, created by provider '%s'", a.Status.Provider)
+		return nil
+	}
+
 	if a.Status.Address == "" {
 		// object was never assigned
 		log.Debug("nothing to do: address was never assigned")
