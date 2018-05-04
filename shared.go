@@ -136,6 +136,8 @@ func (c *SharedController) IpAddressCreatedOrUpdated(a *ipamv1.IpAddress) error 
 		}
 	} else {
 
+		// TODO: check our address still exists?
+
 		log.Debug("nothing to do")
 	}
 
